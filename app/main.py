@@ -5,7 +5,6 @@ def process_order(items):
     for item in items:
         total += item["price"] * item["quantity"]
 
-    # duplicate logic (bad practice)
     total = calculate_total(items)
 
     return total
@@ -13,7 +12,7 @@ def process_order(items):
 
 def divide(a, b):
     if b == 0:
-        return None
+        return float('inf')
     return a / b
 
 
