@@ -1,4 +1,4 @@
-from utils import calculate_total
+from app.utils import calculate_total
 
 def process_order(items):
     total = 0
@@ -12,7 +12,9 @@ def process_order(items):
 
 
 def divide(a, b):
-    return a / b  # no zero handling
+    if b == 0:
+        return "Error: Division by zero"
+    return a / b
 
 
 if __name__ == "__main__":
