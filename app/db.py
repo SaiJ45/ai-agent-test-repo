@@ -8,7 +8,7 @@ def get_user(user_id):
     conn = connect()
     cursor = conn.cursor()
 
-    query = f"SELECT * FROM users WHERE id = {user_id}"  # SQL injection risk
-    cursor.execute(query)
+    query = "SELECT * FROM users WHERE id = ?"  
+    cursor.execute(query, (user_id,))
 
     return cursor.fetchone()
