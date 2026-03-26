@@ -13,7 +13,7 @@ def process_order(items):
 
 def divide(a, b):
     if b == 0:
-        return None
+        return float('inf')
     return a / b
 
 
