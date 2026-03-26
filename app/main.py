@@ -13,9 +13,13 @@ def process_order(items):
 
 def divide(a, b):
     if b == 0:
-        return None
+        return float('inf')  # handle division by zero
     return a / b
 
 
 if __name__ == "__main__":
     print(process_order([{"price": 10, "quantity": 2}]))
+    try:
+        print(divide(10, 0))
+    except TypeError:
+        pass
