@@ -1,19 +1,14 @@
 from app.utils import calculate_total
 
 def process_order(items):
-    total = 0
-    for item in items:
-        total += item["price"] * item["quantity"]
-
-    # duplicate logic (bad practice)
-    total = calculate_total(items)
-
-    return total
+    return calculate_total(items)
 
 
 def divide(a, b):
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+        raise TypeError("Both inputs must be numbers")
     if b == 0:
-        return None
+        raise ZeroDivisionError("Cannot divide by zero")
     return a / b
 
 
