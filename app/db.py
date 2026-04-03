@@ -5,10 +5,15 @@ def connect():
 
 
 def get_user(user_id):
+    if not isinstance(user_id, int):
+        raise TypeError("User ID must be an integer")
+    if user_id == 0:
+        raise ValueError("User ID cannot be zero")
+
     conn = connect()
     cursor = conn.cursor()
 
-    query = f"SELECT * FROM users WHERE id = {user_id}"  # SQL injection risk
-    cursor.execute(query)
+    query = "SELECT * FROM users WHERE id = ?"
+    cursor.execute(query, (user_id,))
 
     return cursor.fetchone()
