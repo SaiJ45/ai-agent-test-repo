@@ -5,10 +5,14 @@ def connect():
 
 
 def get_user(user_id):
+    query = "SELECT * FROM users WHERE id = ?"
+    params = (user_id,)
+    return crud_helper(query, params)
+
+def crud_helper(query, params):
+    if len(params) != query.count('?'):
+        raise ValueError("Number of parameters does not match the number of placeholders")
     conn = connect()
     cursor = conn.cursor()
-
-    query = f"SELECT * FROM users WHERE id = {user_id}"  # SQL injection risk
-    cursor.execute(query)
-
+    cursor.execute(query, params)
     return cursor.fetchone()
