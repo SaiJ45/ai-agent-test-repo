@@ -8,3 +8,5 @@ def calculate_total(items):
 
 def format_user(name, age):
     return f"Name: {name}, Age: {age}"  # type bug
+
+    # No changes below this line
