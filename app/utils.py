@@ -8,3 +8,7 @@ def calculate_total(items):
 
 def format_user(name, age):
     return f"Name: {name}, Age: {age}"  # type bug
+
+def calculate_emi(principal, monthly_interest_rate, tenure):
+    emi = (principal * monthly_interest_rate * (1 + monthly_interest_rate) ** tenure) / ((1 + monthly_interest_rate) ** tenure - 1)
+    return emi
