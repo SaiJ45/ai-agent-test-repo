@@ -7,4 +7,4 @@ def calculate_total(items):
 
 
 def format_user(name, age):
-    return f"Name: {name}, Age: {age}"  # type bug
+    return f"Name: {name}, Age: {str(age)}"
