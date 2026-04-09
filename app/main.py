@@ -33,9 +33,13 @@ def divide(a, b):
         return a / b
     except (ZeroDivisionError, TypeError, ValueError, OverflowError) as e:
         logging.error(f"Error dividing: {e}")
-        return None
+        raise ValueError(f"Division failed: {e}") from e
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.ERROR)
     print(process_order([{"price": 10, "quantity": 2}]))
+    try:
+        print(divide(10, 0))
+    except ValueError as e:
+        print(e)
