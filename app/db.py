@@ -16,13 +16,17 @@ def get_user(user_id: int) -> tuple | None:
         return cursor.fetchone()
 
 # Adding a generic CRUD helper function
-def crud_helper(query: str, params: tuple | None = None) -> list | None:
+def crud_helper(query: str, params: tuple | None = None, query_type: str = "select") -> list | dict | None:
     """Executes a CRUD operation."""
     with connect() as conn:
         cursor = conn.cursor()
         try:
             cursor.execute(query, params or ())
-            if cursor.description is not None:
+            if query_type == "insert":
+                return {"id": cursor.lastrowid}
+            elif query_type == "update" or query_type == "delete":
+                return {"rows_affected": cursor.rowcount}
+            elif cursor.description is not None:
                 return cursor.fetchall()
             conn.commit()
         except sqlite3.Error as e:
