@@ -1,7 +1,11 @@
 import sqlite3
 
 def connect():
-    return sqlite3.connect("test.db")
+    try:
+        return sqlite3.connect("test.db")
+    except sqlite3.Error as e:
+        print(f"Error connecting to database: {e}")
+        return None
 
 
 def get_user(user_id: int) -> tuple | None:
