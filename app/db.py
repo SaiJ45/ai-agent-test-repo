@@ -16,15 +16,23 @@ def get_user(user_id: int) -> tuple | None:
         return cursor.fetchone()
 
 # Adding a generic CRUD helper function
-def crud_helper(query: str, params: tuple | None = None) -> list | None:
+def crud_helper(operation: str, query: str, params: tuple | None = None) -> list | None:
     """Executes a CRUD operation."""
+    if operation not in ["insert", "update", "delete", "select"]:
+        raise ValueError("Invalid operation. Supported operations are 'insert', 'update', 'delete', and 'select'.")
+
     with connect() as conn:
         cursor = conn.cursor()
         try:
             cursor.execute(query, params or ())
-            if cursor.description is not None:
-                return cursor.fetchall()
-            conn.commit()
+            if operation in ["insert", "update", "delete"]:
+                conn.commit()
+                return cursor.rowcount
+            elif operation == "select":
+                if cursor.description is not None:
+                    return cursor.fetchall()
+                else:
+                    return None
         except sqlite3.Error as e:
             conn.rollback()
             raise RuntimeError(f"Database operation failed: {e}")
