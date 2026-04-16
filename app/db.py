@@ -21,10 +21,23 @@ def crud_helper(query: str, params: tuple | None = None) -> list | None:
     with connect() as conn:
         cursor = conn.cursor()
         try:
-            cursor.execute(query, params or ())
-            if cursor.description is not None:
-                return cursor.fetchall()
-            conn.commit()
+            if query.lower().startswith("insert"):
+                cursor.execute(query, params or ())
+                conn.commit()
+                return cursor.lastrowid
+            elif query.lower().startswith("update"):
+                cursor.execute(query, params or ())
+                conn.commit()
+                return cursor.rowcount
+            elif query.lower().startswith("delete"):
+                cursor.execute(query, params or ())
+                conn.commit()
+                return cursor.rowcount
+            else:
+                cursor.execute(query, params or ())
+                if cursor.description is not None:
+                    return cursor.fetchall()
+                conn.commit()
         except sqlite3.Error as e:
             conn.rollback()
             raise RuntimeError(f"Database operation failed: {e}")
