@@ -25,7 +25,7 @@ def divide(a, b):
         if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
             raise TypeError("Both 'a' and 'b' must be numbers.")
         if b == 0:
-            raise ZeroDivisionError("Cannot divide by zero.")
+            return "Cannot divide by zero."
         if a < 0 or b < 0:
             raise ValueError("Both 'a' and 'b' must be non-negative.")
         if abs(a) > 1e308 or abs(b) > 1e308:
@@ -33,9 +33,10 @@ def divide(a, b):
         return a / b
     except (ZeroDivisionError, TypeError, ValueError, OverflowError) as e:
         logging.error(f"Error dividing: {e}")
-        return None
+        return str(e)
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.ERROR)
     print(process_order([{"price": 10, "quantity": 2}]))
+    print(divide(10, 0))
