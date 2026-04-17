@@ -19,12 +19,12 @@ def calculate_brokerage(total_value):
         if total_value < 0:
             raise ValueError("Total value must be non-negative.")
         if total_value == 0:
-            return 0
+            raise ValueError("Total value cannot be zero.")
         if abs(total_value) > 1e308:
             raise OverflowError("Total value is too large.")
         brokerage_percentage = 0.05  # assuming 5% brokerage
         brokerage = total_value * brokerage_percentage
-        return brokerage
+        return {"decision": "success", "brokerage": brokerage}
     except (TypeError, ValueError, OverflowError) as e:
         logging.error(f"Error calculating brokerage: {e}")
-        return None
+        return {"decision": "failure", "error": str(e)}
