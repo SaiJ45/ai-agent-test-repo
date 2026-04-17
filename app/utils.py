@@ -38,5 +38,11 @@ def calculate_emi(principal, monthly_interest_rate, tenure_in_months):
     if abs(principal) > 1e308 or abs(monthly_interest_rate) > 1e308 or abs(tenure_in_months) > 1e308:
         raise OverflowError("Values are too large.")
 
+    # Calculate EMI using the correct formula
     emi = principal * monthly_interest_rate * (1 + monthly_interest_rate) ** tenure_in_months / ((1 + monthly_interest_rate) ** tenure_in_months - 1)
+    
+    # Check for potential division by zero error in the formula
+    if ((1 + monthly_interest_rate) ** tenure_in_months - 1) == 0:
+        raise ZeroDivisionError("Cannot calculate EMI due to division by zero.")
+    
     return emi
