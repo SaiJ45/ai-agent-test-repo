@@ -12,8 +12,11 @@ def format_user(name, age):
     return f"Name: {name}, Age: {age}"  # type bug
 
 
-def calculate_brokerage(total_value):
+def calculate_brokerage(items):
     try:
+        if not items:
+            raise ValueError("Items list cannot be empty.")
+        total_value = calculate_total(items)
         if total_value is None:
             raise TypeError("Total value cannot be None.")
         if not isinstance(total_value, (int, float)):
