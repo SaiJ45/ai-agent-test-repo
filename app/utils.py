@@ -42,7 +42,12 @@ def calculate_brokerage(items, brokerage_rate):
     if brokerage_rate == 0:
         return 0
 
-    brokerage = total * brokerage_rate / 100
+    try:
+        brokerage = total * brokerage_rate / 100
+    except ZeroDivisionError:
+        raise ValueError("Cannot calculate brokerage with zero brokerage rate.")
+    except OverflowError:
+        raise OverflowError("Brokerage calculation resulted in an overflow.")
 
     return brokerage
 
