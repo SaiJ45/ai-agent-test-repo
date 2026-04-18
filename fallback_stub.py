@@ -1,5 +1,3 @@
-
-
 def calculate_emi(principal, interest_rate, tenure):
     """
     Calculate the Equated Monthly Installment (EMI) for a loan.
